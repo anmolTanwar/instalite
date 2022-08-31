@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>My Posts</title>
+{% endblock %}
+{% block body%}
+{% if 'profile' in session %}
+{% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+{% endfor %}
+{% endif %}
+{% if postdata %}
+{% for post in postdata %}
+<div class="container my-2">
+<div class="card mb-3" style="max-width:800px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{url_for('uploads',fname=post.post_pic)}}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{post.title}}</h5>
+        <p class="card-text">{{post.desc}}</p>
+        <p class="card-text"><small class="text-muted">Uploaded Date :{{post.post_date}} {{post.post_time}} </small></p>
+        <p class="card-text"><small class="text-muted">Uploaded By : {{post.uploaded_by}}</small></p>
+      </div>
+    </div>
+  </div>
+  <a href="{{url_for('delete_post',post_id=post.post_id)}}"  style="text-decoration: None; margin-left: 90%;">Delete</a>
+</div>
+
+</div>
+{% endfor %}
+{% endif %}
+{% endif %}
+{% endblock %}

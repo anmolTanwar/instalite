@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Uploading Post</title>
+{% endblock %}
+{% block body %}
+{% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+{% endif %}
+<div class="card-header text-center bg-primary"><h3 class="font-weight-bold text-white ">Upload Post </h3></div>
+<div class="card-body ">
+    <form action="{{ url_for('uploadPost')}}" method="post" enctype=multipart/form-data>
+        <div class="mb-3">
+            <label for="email" class="form-label">Choose Post Image:</label>
+            <input type="file" name="postimg" id="finput" class="form-control" accept="image/png, image/jpg, image/gif, image/jpeg" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Title:</label>
+            <input type="text" class="form-control" id="title" placeholder="Enter Title" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="pwd" class="form-label">Description:</label>
+            <textarea class="form-control" id="desc"  name="desc" row="10" required></textarea>
+        </div>
+
+        <div class="card-footer border-top-0 text-center bg-light">
+        <button type="submit" class="btn btn-primary mx-auto d-block my-2">Upload</button> <a href="{{url_for('home')}}" class="btn btn-danger">Cancel</a>
+        </div>
+    </form>
+   
+</div>
+{% endblock %}

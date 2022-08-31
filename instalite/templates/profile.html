@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>My Profile</title>
+{% endblock %}
+{% block body %}
+<div class="container w-75">
+    <form action="{{url_for('update_profile')}}" method="post" class='form-control' enctype="multipart/form-data" >   
+        <div class="mb-3">
+                {% if data[5] == 'cover.jpg' %}
+                <img src="{{url_for('static',filename = 'cover.jpg') }}" class="card-img-top" alt="..." style="border-radius:100%;width:25%;height:25%">
+                {% else %}
+                <img src="{{url_for('uploads',fname = data[5]) }}" class="card-img-top" alt="..." style="border-radius:100%;width:25%;height:25%">
+                {% endif %}
+                <label for="finput" style="cursor:pointer;" class="btn btn-primary"><input id="finput" name="fname" type="file" accept="image/png, image/jpg, image/gif, image/jpeg" style="display:None;" onclick="enable()"/>Edit</label>
+            </div>
+                <h1>{{ data[1] }}</h1>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="uname" value="{{data[2]}}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Phone No:</label>
+                    <input type="text" class="form-control" id="phone_no" placeholder="Enter Phone" name="phone_no" value="{{data[3]}}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">About Me:</label>
+                    <textarea class="form-control" id="desc"  name="desc"  row="3" disabled>{{data[4]}}</textarea>
+                </div>
+                <div class="mb-3">
+                <button type="submit" id='submit_btn' class="btn btn-primary" disabled>Update</button>
+                </div>
+                
+            </form>
+
+</div>
+<script>
+    enable= () =>{
+        btn = document.getElementById('submit_btn');
+        phone_no = document.getElementById('phone_no');
+        desc = document.getElementById('desc');
+        btn.disabled = false;
+        phone_no.disabled = false;
+        desc.disabled = false;
+
+    }
+</script>
+{% endblock %}
